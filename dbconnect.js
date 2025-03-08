@@ -9,15 +9,16 @@ const client = new MongoClient(url);
 
 const connectionToDb = async() => {
     try {
-
+        await client.connect();
+        const db = client.db('admin');
+        const collection = db.collection('users');
+        const data = collection.find({}).toArray();
+        console.log(data)
     } catch(err) {
         if (err) {
             throw err
         }
     }
-    await client.connect();
-    const db = client.db('maiden');
-    const  collection = db.collection('users');
-    const data = collection.find({}).toArray();
-    console.log(data)
+    
 } 
+connectionToDb();
